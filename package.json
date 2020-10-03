@@ -1,0 +1,24 @@
+{
+  "name": "nearby-api",
+  "version": "1.0.0",
+  "description": "An API for demonstrating user location tracking with IP address, and Finding users nearby feature",
+  "main": "server.js",
+  "author": "Olanrewaju A. Olaboye",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon -r esm ./src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "express-ip": "^1.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
+    "mongoose-auto-increment": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
