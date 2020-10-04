@@ -3,7 +3,7 @@ import { handleResError, handleResSuccess } from "../utils/response.util";
 import JWT from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
-const { JWT_SECRET_KEY } = process.env;
+const { secretKey } = process.env;
 
 export const SignupController = async (req, res) => {
   try {
@@ -16,11 +16,7 @@ export const SignupController = async (req, res) => {
         expiresIn: "12h",
         issuer: "nearby-hasher",
       };
-      let token = await JWT.sign(
-        { id, email, isActive },
-        JWT_SECRET_KEY,
-        options
-      );
+      let token = await JWT.sign({ id, email, isActive }, secretKey, options);
       handleResSuccess(res, `Account created!`, token, 201);
     }
   } catch (err) {

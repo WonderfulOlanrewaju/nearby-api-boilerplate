@@ -7,11 +7,7 @@ const { secretKey } = process.env;
 
 export const createUser = async (userDetails) => {
   try {
-    let foundExistingUser = await User.findOne({
-      where: {
-        email: userDetails.email,
-      },
-    });
+    let foundExistingUser = await User.findOne({ email: userDetails.email });
     let err;
     let user;
     if (foundExistingUser && foundExistingUser !== null) {
@@ -20,7 +16,12 @@ export const createUser = async (userDetails) => {
       };
       return { err, user };
     } else {
-      let registeredUser = await User.create(userDetails);
+      let pwSalt = await bcrypt.genSaltSync(10);
+      let pwHash = await bcrypt.hashSync(userDetails.password, pwSalt);
+      let registeredUser = await User.create({
+        ...userDetails,
+        password: pwHash,
+      });
       user = registeredUser.toJSON();
       return { err, user };
     }
@@ -33,9 +34,7 @@ export const createUser = async (userDetails) => {
 export const loginUser = async (loginDetails) => {
   try {
     let foundExistingUser = await User.findOne({
-      where: {
-        email: loginDetails.email,
-      },
+      email: loginDetails.email,
     });
     if (foundExistingUser) {
       let correctPW = bcrypt.compareSync(

@@ -12,6 +12,7 @@ const UserSchema = new Schema({
   lastName: { type: String, default: "" },
   email: { type: String, unique: true },
   address: { type: String, default: "" },
+  password: { type: String, default: "" },
 });
 
 UserSchema.plugin(autoIncrement.plugin, {
