@@ -11,12 +11,12 @@ export const SignupController = async (req, res) => {
     let { err, user } = await createUser(userDetails);
     if (err) handleResError(res, err, 400);
     else {
-      let { id, email, isActive } = user;
+      let { _id, email, isActive } = user;
       let options = {
         expiresIn: "12h",
         issuer: "nearby-hasher",
       };
-      let token = await JWT.sign({ id, email, isActive }, secretKey, options);
+      let token = await JWT.sign({ _id, email, isActive }, secretKey, options);
       handleResSuccess(res, `Account created!`, token, 201);
     }
   } catch (err) {
